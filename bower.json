@@ -1,0 +1,21 @@
+{
+  "name": "combo-breaker",
+  "version": "0.1.0",
+  "author": "Dustin Cass <dcass@blizzard.com>",
+  "description": "Input/Select combo box directive for Angular",
+  "main": [
+    "dist/combo-breaker.min.js",
+    "dist/combo-breaker.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "lib",
+    "test",
+    "example"
+  ],
+  "dependencies": {
+    "angular": "1.3.x",
+    "jquery": "^2.1.3"
+  }
+}

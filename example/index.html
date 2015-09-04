@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="cc-example" ng-strict-di>
+<head>
+    <title>CC-Combo-Breaker</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="combo-breaker.css" />
+    <link rel="stylesheet" href="example.css" />
+</head>
+<body>
+    <div class="example-wrapper" ng-controller="ExampleController">
+        <combobreaker list="states" ng-model="exampleModel" strict="true" placeholder="State"></combobreaker>
+
+        <div class="test">exampleModel: {{exampleModel}}</div>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="angular.js"></script>
+    <script src="combo-breaker.min.js"></script>
+    <script src="example.js"></script>
+</body>
+</html>

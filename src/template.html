@@ -1,0 +1,11 @@
+<div class="cc-combo-wrapper">
+    <div class="cc-input-wrapper">
+        <input type="text" class="cc-combo-input" autocomplete="off" ng-model="ccSearch" placeholder="{{placeholder}}" />
+        <span class="button"></span>
+    </div>
+    <div class="cc-suggestions">
+        <ul class="cc-list">
+            <li ng-repeat="item in list | filter: ccSearch | limitTo: ccLimit">{{item}}</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.example-wrapper {
+    width: 250px;
+}
+
+.test {
+    height: 24px;
+    background: #eee;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font: 12px/24px Consolas, monospace;
+}

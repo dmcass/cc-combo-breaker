@@ -1,0 +1,16 @@
+*.sublime-project
+*.sublime-workspace
+
+Thumbs.db
+Desktop.ini
+
+.DS_Store
+._*
+
+lib
+node_modules
+example/angular.js
+example/combo-breaker.css
+example/combo-breaker.min.js
+example/jquery.js
+example/select-sprite.png
