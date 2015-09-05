@@ -22,6 +22,17 @@
                             return val.toUpperCase();
                         });
 
+                    // Initialize ccSearch to the value of ngModel if possible
+                    if (scope.strict) {
+                        if (comparisonList.indexOf(scope.ngModel.toUpperCase()) > -1) {
+                            scope.ccSearch = scope.ngModel;
+                        } else {
+                            scope.ccSearch = null;
+                        }
+                    } else {
+                        scope.ccSearch = scope.ngModel;
+                    }
+
                     if (isNaN(scope.suggestionLimit) || Number(scope.suggestionLimit) <= 1) {
                         scope.ccLimit = Infinity;
                     } else {
@@ -145,9 +156,6 @@
                             }
                         });
                     }
-                },
-                controller: function ($scope) {
-                    $scope.ccSearch = "";
                 }
             };
         });

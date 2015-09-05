@@ -16,6 +16,6 @@
             "Vermont", "Virginia", "Washington", "West Virginia",
             "Wisconsin", "Wyoming"
         ];
-        $scope.exampleModel = "";
+        $scope.exampleModel = "California";
     }]);
 })();
