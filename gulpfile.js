@@ -48,12 +48,7 @@ gulp.task("css", function () {
         .pipe(gulp.dest(distDir));
 });
 
-gulp.task("images", function () {
-    return gulp.src(["src/select-sprite.png"])
-        .pipe(gulp.dest("dist"));
-});
-
-gulp.task("build", ["js", "css", "images"]);
+gulp.task("build", ["js", "css"]);
 
 gulp.task("buildExample", ["build"], function () {
     var sources = require("wiredep")().js;
