@@ -17,7 +17,10 @@
                 link: function (scope, element, attrs) {
                     var input = element.find("input[type=text]"),
                         triggerEvent = scope.strict ? "change" : "input",
-                        suggestionList = element.find(".cc-list");
+                        suggestionList = element.find(".cc-list"),
+                        comparisonList = scope.list.map(function (val) {
+                            return val.toUpperCase();
+                        });
 
                     if (isNaN(scope.suggestionLimit) || Number(scope.suggestionLimit) <= 1) {
                         scope.ccLimit = Infinity;
@@ -124,9 +127,9 @@
                             if (input.val() === "") {
                                 element.find("li").first().addClass("selected");
                                 scope.$apply(function () {
-                                    scope.ngModel = scope.ccSearch;
+                                    scope.ngModel = null;
                                 });
-                            } else if (scope.list.indexOf(input.val()) > -1) {
+                            } else if (comparisonList.indexOf(input.val().toUpperCase()) > -1) {
                                 scope.$apply(function () {
                                     scope.ngModel = scope.ccSearch;
                                 });
