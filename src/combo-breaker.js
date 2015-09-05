@@ -24,7 +24,7 @@
 
                     // Initialize ccSearch to the value of ngModel if possible
                     if (scope.strict) {
-                        if (comparisonList.indexOf(scope.ngModel.toUpperCase()) > -1) {
+                        if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toUpperCase()) > -1) {
                             scope.ccSearch = scope.ngModel;
                         } else {
                             scope.ccSearch = null;
