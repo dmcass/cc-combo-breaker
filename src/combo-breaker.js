@@ -88,7 +88,7 @@
                             suggestions = element.find("li");
 
                             if (tar.is(suggestions)) {
-                                input.val(tar.text()).trigger(triggerEvent);
+                                input.val(tar.text()).trigger(triggerEvent).trigger("blur");
                                 suggestions.removeClass("selected");
                             }
 
@@ -172,6 +172,10 @@
                                 scope.ngModel = scope.ccSearch;
                             });
                         }
+                    });
+
+                    element.on("mousedown", function (e) {
+                        e.preventDefault();
                     });
 
                     if (scope.strict) {
