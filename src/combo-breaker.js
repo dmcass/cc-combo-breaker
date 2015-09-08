@@ -34,7 +34,7 @@
                         }
 
                         // otherwise sort by match quality
-                        return aMatchQuality > bMatchQuality;
+                        return aMatchQuality - bMatchQuality;
                     });
 
                     return filtered;
