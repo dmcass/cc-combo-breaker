@@ -5,6 +5,7 @@
 var http = require("http");
 var path = require("path");
 var del = require("del");
+var argv = require("yargs").argv;
 var ecstatic = require("ecstatic");
 var gulp = require("gulp");
 var $ = require("gulp-load-plugins")();
@@ -56,6 +57,12 @@ gulp.task("buildExample", ["build"], function () {
 
     return gulp.src(sources)
         .pipe(gulp.dest(exDir));
+});
+
+gulp.task("bump", function () {
+    return gulp.src(["./bower.json", "./package.json"])
+        .pipe($.bump({ type: argv.t }))
+        .pipe(gulp.dest("."));
 });
 
 gulp.task("serve", ["buildExample"], function () {
