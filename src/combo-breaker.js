@@ -2,6 +2,47 @@
     "use strict";
 
     angular.module("cc-combo-breaker", [])
+        .filter("ccComboFilter", function () {
+            function matchQuality(string, search) {
+                if (string.toLowerCase() === search.toLowerCase()) {
+                    // exact match
+                    return 0;
+                } else if (string.toLowerCase().indexOf(search.toLowerCase()) === 0) {
+                    // starts with
+                    return 1;
+                } else if (string.toLowerCase().indexOf(search.toLowerCase()) > -1) {
+                    // contains
+                    return 2;
+                }
+            }
+
+            return function (items, search) {
+                var filtered;
+
+                if (search) {
+                    filtered = items.filter(function (item) {
+                        return item.toLowerCase().indexOf(search.toLowerCase()) > -1;
+                    });
+
+                    filtered.sort(function (a, b) {
+                        var aMatchQuality = matchQuality(a, search),
+                            bMatchQuality = matchQuality(b, search);
+
+                        if (aMatchQuality === bMatchQuality) {
+                            // sort alphabetically when match quality is the same
+                            return a.toLowerCase().localeCompare(b.toLowerCase());
+                        }
+
+                        // otherwise sort by match quality
+                        return aMatchQuality > bMatchQuality;
+                    });
+
+                    return filtered;
+                }
+
+                return items;
+            };
+        })
         .directive("combobreaker", function ($document) {
             return {
                 restrict: "E",
@@ -19,12 +60,12 @@
                         triggerEvent = scope.strict ? "change" : "input",
                         suggestionList = element.find(".cc-list"),
                         comparisonList = scope.list.map(function (val) {
-                            return val.toUpperCase();
+                            return val.toLowerCase();
                         });
 
                     // Initialize ccSearch to the value of ngModel if possible
                     if (scope.strict) {
-                        if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toUpperCase()) > -1) {
+                        if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toLowerCase()) > -1) {
                             scope.ccSearch = scope.ngModel;
                         } else {
                             scope.ccSearch = "";

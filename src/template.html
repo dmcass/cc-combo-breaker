@@ -5,7 +5,7 @@
     </div>
     <div class="cc-suggestions">
         <ul class="cc-list">
-            <li ng-repeat="item in list | filter: ccSearch | limitTo: ccLimit">{{item}}</li>
+            <li ng-repeat="item in list | ccComboFilter: ccSearch | limitTo: ccLimit">{{item}}</li>
         </ul>
     </div>
 </div>
