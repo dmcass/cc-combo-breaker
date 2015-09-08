@@ -187,7 +187,7 @@
                                 });
                             } else {
                                 element.addClass("cc-error");
-                                input.val("").trigger("change");
+                                input.val(scope.ngModel).trigger(triggerEvent);
                             }
                         });
                         // Animation complete - remove error class
