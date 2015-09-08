@@ -181,7 +181,7 @@
                                 scope.$apply(function () {
                                     scope.ngModel = null;
                                 });
-                            } else if (comparisonList.indexOf(input.val().toUpperCase()) > -1) {
+                            } else if (comparisonList.indexOf(input.val().toLowerCase()) > -1) {
                                 scope.$apply(function () {
                                     scope.ngModel = scope.ccSearch;
                                 });
