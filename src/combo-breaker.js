@@ -27,7 +27,7 @@
                         if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toUpperCase()) > -1) {
                             scope.ccSearch = scope.ngModel;
                         } else {
-                            scope.ccSearch = null;
+                            scope.ccSearch = "";
                         }
                     } else {
                         scope.ccSearch = scope.ngModel;
