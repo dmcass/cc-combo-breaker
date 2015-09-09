@@ -89,19 +89,9 @@
 
                             if (tar.is(suggestions)) {
                                 input.val(tar.text()).trigger(triggerEvent).trigger("blur");
-                                suggestions.removeClass("selected");
-                            }
-
-                            if (!tar.is(input)) {
-                                element.removeClass("focus");
-                                suggestions.removeClass("selected");
                             }
                         } else if (tar.closest(element).length) {
-                            element.addClass("focus");
                             input.trigger("focus");
-                            if (!element.find(".selected").length) {
-                                element.find("li").first().addClass("selected");
-                            }
                         }
                     });
 
@@ -111,13 +101,25 @@
                         }
                     });
 
-                    suggestionList.on("mouseenter", "li", function (e) {
+                    suggestionList.on("mousemove", "li", function (e) {
                         var tar = $(e.target);
                         tar.addClass("selected").siblings().removeClass("selected");
                     });
 
                     input.on("focus", function () {
                         element.addClass("focus");
+                        if (!element.find(".selected").length) {
+                            element.find("li").first().addClass("selected");
+                        }
+                    });
+
+                    input.on("blur", function () {
+                        var scrollElem = element.find(".cc-suggestions"),
+                            suggestions = element.find("li");
+
+                        element.removeClass("focus");
+                        scrollElem.scrollTop(0);
+                        suggestions.removeClass("selected");
                     });
 
                     input.on("keydown", function (e) {
@@ -130,9 +132,7 @@
                             // escape: reset value & close
                             if (input.val() === "") {
                                 input.val("").trigger(triggerEvent).trigger("blur");
-                                element.removeClass("focus");
                             } else {
-                                element.removeClass("focus");
                                 input.val(scope.ngModel).trigger(triggerEvent).trigger("blur");
                             }
                         } else if (e.which === 9 || e.which === 13) {
@@ -140,7 +140,6 @@
                             if (selected.length) {
                                 e.preventDefault();
                                 input.val(selected.text()).trigger(triggerEvent).trigger("blur");
-                                element.removeClass("focus");
                             }
                         } else if (e.which === 38) {
                             // up arrow: change selected
