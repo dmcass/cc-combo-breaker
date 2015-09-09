@@ -105,6 +105,21 @@
                         }
                     });
 
+                    element.on("mousedown", function (e) {
+                        if (!$(e.target).is(input)) {
+                            e.preventDefault();
+                        }
+                    });
+
+                    suggestionList.on("mouseenter", "li", function (e) {
+                        var tar = $(e.target);
+                        tar.addClass("selected").siblings().removeClass("selected");
+                    });
+
+                    input.on("focus", function () {
+                        element.addClass("focus");
+                    });
+
                     input.on("keydown", function (e) {
                         var item, selectedPos, selectedHeight,
                             scrollElem = element.find(".cc-suggestions"),
@@ -156,11 +171,6 @@
                         }
                     });
 
-                    suggestionList.on("mouseenter", "li", function (e) {
-                        var tar = $(e.target);
-                        tar.addClass("selected").siblings().removeClass("selected");
-                    });
-
                     input.on("input", function () {
                         var selected = element.find("li.selected");
 
@@ -171,12 +181,6 @@
                             scope.$apply(function () {
                                 scope.ngModel = scope.ccSearch;
                             });
-                        }
-                    });
-
-                    element.on("mousedown", function (e) {
-                        if (!$(e.target).is(input)) {
-                            e.preventDefault();
                         }
                     });
 
