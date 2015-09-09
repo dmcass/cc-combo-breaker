@@ -175,7 +175,9 @@
                     });
 
                     element.on("mousedown", function (e) {
-                        e.preventDefault();
+                        if (!$(e.target).is(input)) {
+                            e.preventDefault();
+                        }
                     });
 
                     if (scope.strict) {
