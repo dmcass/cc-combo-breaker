@@ -56,7 +56,8 @@
                     placeholder: "@?"
                 },
                 link: function (scope, element, attrs) {
-                    var input = element.find("input[type=text]"),
+                    var input = element.find(".cc-combo-input"),
+                        search = element.find(".cc-search-text"),
                         triggerEvent = scope.strict ? "change" : "input",
                         suggestionList = element.find(".cc-list"),
                         comparisonList = scope.list.map(function (val) {
@@ -80,15 +81,18 @@
                         scope.ccLimit = parseInt(scope.suggestionLimit, 10);
                     }
 
-                    $document.on("click", function (e) {
-                        var tar = $(e.target),
-                            suggestions;
+                    $document.on("mousedown", function (e) {
+                        var suggestions, button,
+                            tar = $(e.target);
 
                         if (element.hasClass("focus")) {
                             suggestions = element.find("li");
+                            button = element.find(".button");
 
                             if (tar.is(suggestions)) {
                                 input.val(tar.text()).trigger(triggerEvent).trigger("blur");
+                            } else if (tar.is(button)) {
+                                input.trigger(triggerEvent).trigger("blur");
                             }
                         } else if (tar.closest(element).length) {
                             input.trigger("focus");
@@ -107,9 +111,25 @@
                     });
 
                     input.on("focus", function () {
+                        var suggestions,
+                            selected;
+
                         element.addClass("focus");
+                        scope.$apply(function () {
+                            scope.ccSearch = "";
+                        });
+
                         if (!element.find(".selected").length) {
-                            element.find("li").first().addClass("selected");
+                            suggestions = element.find("li");
+                            selected = suggestions.filter(function () {
+                                return $(this).text().toLowerCase() === input.val().toLowerCase();
+                            });
+
+                            if (selected.length) {
+                                selected.addClass("selected");
+                            } else {
+                                suggestions.first().addClass("selected");
+                            }
                         }
                     });
 
@@ -173,6 +193,9 @@
                     input.on("input", function () {
                         var selected = element.find("li.selected");
 
+                        scope.$apply(function () {
+                            scope.ccSearch = input.val();
+                        });
                         selected.removeClass("selected");
                         element.find("li").first().addClass("selected");
 
@@ -192,11 +215,12 @@
                                 });
                             } else if (comparisonList.indexOf(input.val().toLowerCase()) > -1) {
                                 scope.$apply(function () {
-                                    scope.ngModel = scope.ccSearch;
+                                    scope.ngModel = input.val();
                                 });
                             } else {
                                 element.addClass("cc-error");
                                 input.val(scope.ngModel).trigger(triggerEvent);
+                                search.val(scope.ngModel).trigger(triggerEvent);
                             }
                         });
                         // Animation complete - remove error class

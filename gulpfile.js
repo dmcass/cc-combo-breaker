@@ -15,7 +15,7 @@ var distDir = "dist/";
 var exDir = "example/";
 
 gulp.task("clean", function (cb) {
-    del([distDir, exDir], cb);
+    del([distDir, exDir + "lib/"], cb);
 });
 
 gulp.task("template", function () {
@@ -56,7 +56,7 @@ gulp.task("buildExample", ["build"], function () {
     sources.push(distDir + "**/*");
 
     return gulp.src(sources)
-        .pipe(gulp.dest(exDir));
+        .pipe(gulp.dest(exDir + "lib/"));
 });
 
 gulp.task("bump", function () {
