@@ -1,6 +1,6 @@
 {
   "name": "combo-breaker",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Dustin Cass <dustin.cass@gmail.com>",
   "description": "Input/Select combo box directive for Angular",
   "main": [
