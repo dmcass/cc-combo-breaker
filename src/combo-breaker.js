@@ -118,6 +118,10 @@
                         scope.$apply(function () {
                             scope.ccSearch = "";
                         });
+                        // Delay selection of text to make it stick
+                        setTimeout(function () {
+                            input.trigger("select");
+                        }, 50);
 
                         if (!element.find(".selected").length) {
                             suggestions = element.find("li");
@@ -137,6 +141,7 @@
                         var scrollElem = element.find(".cc-suggestions"),
                             suggestions = element.find("li");
 
+                        this.selectionStart = this.selectionEnd;
                         element.removeClass("focus");
                         scrollElem.scrollTop(0);
                         suggestions.removeClass("selected");
