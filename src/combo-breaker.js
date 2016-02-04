@@ -64,15 +64,15 @@
                             return val.toLowerCase();
                         });
 
-                    // Initialize ccSearch to the value of ngModel if possible
+                    // Initialize displayed input to the value of ngModel if possible
                     if (scope.strict) {
                         if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toLowerCase()) > -1) {
-                            scope.ccSearch = scope.ngModel;
+                            input.val(scope.ngModel);
                         } else {
-                            scope.ccSearch = "";
+                            input.val("");
                         }
                     } else {
-                        scope.ccSearch = scope.ngModel;
+                        input.val(scope.ngModel);
                     }
 
                     if (isNaN(scope.suggestionLimit) || Number(scope.suggestionLimit) <= 1) {
