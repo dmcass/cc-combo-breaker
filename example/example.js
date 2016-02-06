@@ -16,6 +16,16 @@
             "Vermont", "Virginia", "Washington", "West Virginia",
             "Wisconsin", "Wyoming"
         ];
-        $scope.exampleModel = "";
+        $scope.exampleModel = "Minnesota";
+
+        $scope.test = function () {
+            var random = Math.floor(Math.random() * 50);
+
+            $scope.exampleModel = $scope.states[random];
+        };
+
+        $scope.bogus = function () {
+            $scope.exampleModel = "foo";
+        };
     }]);
 })();

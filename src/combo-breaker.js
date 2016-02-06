@@ -55,7 +55,7 @@
                     strict: "@?",
                     placeholder: "@?"
                 },
-                link: function (scope, element, attrs) {
+                link: function (scope, element) {
                     var input = element.find(".cc-combo-input"),
                         search = element.find(".cc-search-text"),
                         triggerEvent = scope.strict ? "change" : "input",
@@ -64,16 +64,22 @@
                             return val.toLowerCase();
                         });
 
-                    // Initialize displayed input to the value of ngModel if possible
-                    if (scope.strict) {
-                        if (scope.ngModel && comparisonList.indexOf(scope.ngModel.toLowerCase()) > -1) {
-                            input.val(scope.ngModel);
-                        } else {
-                            input.val("");
+                    // Watch for outside changes to the model and update accordingly
+                    scope.$watch("ngModel", function (newVal) {
+                        if (newVal) {
+                            if (scope.strict) {
+                                if (newVal && comparisonList.indexOf(newVal.toLowerCase()) > -1) {
+                                    input.val(newVal);
+                                } else {
+                                    // Not in the list, reset ngModel and input value
+                                    scope.ngModel = "";
+                                    input.val("");
+                                }
+                            } else {
+                                input.val(newVal);
+                            }
                         }
-                    } else {
-                        input.val(scope.ngModel);
-                    }
+                    });
 
                     if (isNaN(scope.suggestionLimit) || Number(scope.suggestionLimit) <= 1) {
                         scope.ccLimit = Infinity;
