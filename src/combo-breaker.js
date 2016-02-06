@@ -167,6 +167,7 @@
                                 input.val(selected.text()).trigger(triggerEvent).trigger("blur");
                             }
                         } else if (e.which === 38) {
+                            event.preventDefault();
                             // up arrow: change selected
                             item = element.find("li").first();
                             if (!selected.is(item)) {
@@ -175,11 +176,17 @@
                                 // scroll with selection
                                 selectedPos = selected.position();
                                 selectedHeight = selected.outerHeight();
+
                                 if (selectedPos.top < scrollElem.scrollTop()) {
+                                    // If selected element is above the visible scroll area
                                      scrollElem.scrollTop(selectedPos.top);
+                                } else if (selectedPos.top + selectedHeight > scrollElem.scrollTop() + scrollHeight) {
+                                    // If selected element is below the visible scroll area
+                                    scrollElem.scrollTop(selectedPos.top + selectedHeight - scrollElem.height());
                                 }
                             }
                         } else if (e.which === 40) {
+                            event.preventDefault();
                             // down arrow: change selected
                             item = element.find("li").last();
                             if (!selected.is(item)) {
@@ -188,7 +195,12 @@
                                 // scroll with selection
                                 selectedPos = selected.position();
                                 selectedHeight = selected.outerHeight();
-                                if (selectedPos.top + selectedHeight > scrollElem.scrollTop() + scrollHeight) {
+
+                                if (selectedPos.top < scrollElem.scrollTop()) {
+                                    // If selected element is above the visible scroll area
+                                     scrollElem.scrollTop(selectedPos.top);
+                                } else if (selectedPos.top + selectedHeight > scrollElem.scrollTop() + scrollHeight) {
+                                    // If selected element is below the visible scroll area
                                     scrollElem.scrollTop(selectedPos.top + selectedHeight - scrollElem.height());
                                 }
                             }
@@ -196,13 +208,15 @@
                     });
 
                     input.on("input", function () {
-                        var selected = element.find("li.selected");
+                        var selected = element.find("li.selected"),
+                            scrollElem = element.find(".cc-suggestions");
 
                         scope.$apply(function () {
                             scope.ccSearch = input.val();
                         });
                         selected.removeClass("selected");
                         element.find("li").first().addClass("selected");
+                        scrollElem.scrollTop(0);
 
                         if (!scope.strict) {
                             scope.$apply(function () {
