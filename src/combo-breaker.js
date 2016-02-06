@@ -66,18 +66,16 @@
 
                     // Watch for outside changes to the model and update accordingly
                     scope.$watch("ngModel", function (newVal) {
-                        if (newVal) {
-                            if (scope.strict) {
-                                if (newVal && comparisonList.indexOf(newVal.toLowerCase()) > -1) {
-                                    input.val(newVal);
-                                } else {
-                                    // Not in the list, reset ngModel and input value
-                                    scope.ngModel = "";
-                                    input.val("");
-                                }
-                            } else {
+                        if (scope.strict) {
+                            if (newVal && comparisonList.indexOf(newVal.toLowerCase()) > -1) {
                                 input.val(newVal);
+                            } else {
+                                // Not in the list, reset ngModel and input value
+                                scope.ngModel = "";
+                                input.val("");
                             }
+                        } else {
+                            input.val(newVal);
                         }
                     });
 

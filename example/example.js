@@ -27,5 +27,9 @@
         $scope.bogus = function () {
             $scope.exampleModel = "foo";
         };
+
+        $scope.empty = function () {
+            $scope.exampleModel = undefined;
+        };
     }]);
 })();

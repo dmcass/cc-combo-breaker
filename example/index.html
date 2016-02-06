@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="example-wrapper" ng-controller="ExampleController">
-        <combobreaker list="states" ng-model="exampleModel" strict="true" placeholder="State"></combobreaker>
+        <combobreaker list="states" ng-model="exampleModel" placeholder="State"></combobreaker>
 
         <div class="test">exampleModel: {{exampleModel}}</div>
 
@@ -16,6 +16,8 @@
         <button type="button" ng-click="test()">Change value</button>
         <br><br>
         <button type="button" ng-click="bogus()">Bogus value</button>
+        <br><br>
+        <button type="button" ng-click="empty()">Empty value</button>
     </div>
 
     <script src="lib/jquery.js"></script>
